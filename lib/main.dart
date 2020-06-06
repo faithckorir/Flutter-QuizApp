@@ -25,13 +25,16 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
-  List<Icon> scorekeeper = [
-
+  int questionNumber=0;
+  List<Icon> scorekeeper = [];
+  List<String> questions = [
+    'You can lead a cow down stairs but not up stairs.',
+    'Approximately one quarter of human bones are in the feet.',
+    'A slug\'s blood is green.'
   ];
   @override
   Widget build(BuildContext context) {
     return Column(
-
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
@@ -41,7 +44,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                'This is where the question text will go.',
+                questions[questionNumber],
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
@@ -66,14 +69,18 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 setState(() {
-                  //scorekeeper.removeLast()
-                  scorekeeper.add( Icon(
-                    Icons.check,
-                    color: Colors.green,
-                  ),
+                  if(questionNumber<2){
+                    questionNumber++;
+                  }else {
+                    questionNumber = 0;
+                  }
+                  scorekeeper.add(
+                    Icon(
+                      Icons.check,
+                      color: Colors.green,
+                    ),
                   );
                 });
-
               },
             ),
           ),
@@ -93,6 +100,11 @@ class _QuizPageState extends State<QuizPage> {
               onPressed: () {
                 //The user picked false.
                 setState(() {
+                  if(questionNumber<2){
+                    questionNumber++;
+                  }else {
+                    questionNumber = 0;
+                  }
                   scorekeeper.add(Icon(
                     Icons.close,
                     color: Colors.red,
